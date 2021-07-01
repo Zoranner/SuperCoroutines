@@ -1,15 +1,15 @@
 ﻿//============================================================
-// Project: SFV
+// Project: TimeTunnel
 // Author: Zoranner@ZORANNER
-// Datetime: 2019-12-05 13:55:29
-// Description: TODO >> This is a script Description.
+// Datetime: 2019-05-14 10:38:47
+// Description: Base on More Effective Coroutines Threaded v3.08.0
 //============================================================
 
 using UnityEngine;
 using System.Threading;
 using System.Collections.Generic;
 
-namespace KimoTech.DigitalFactory.Kernels
+namespace Zoranner.SuperCoroutines
 {
     public class ThreadTunnel : MonoBehaviour
     {
@@ -24,7 +24,7 @@ namespace KimoTech.DigitalFactory.Kernels
         private readonly Queue<ThreadData> _abandonedThreads = new Queue<ThreadData>();
         private readonly object _returnLock = new object();
 
-        private static volatile ThreadData _chosenThread;
+        private volatile static ThreadData _chosenThread;
 
         private const int ProcessesBlockSize = 32;
 		private bool initialized = false;
@@ -36,10 +36,10 @@ namespace KimoTech.DigitalFactory.Kernels
             {
                 if (_instance == null)
                 {
-                    GameObject instanceHome = GameObject.Find("Timing Controller");
+                    GameObject instanceHome = GameObject.Find("TimeTunnel Controller");
 
 					if (instanceHome == null) {
-						instanceHome = new GameObject { name = "Timing Controller" };
+						instanceHome = new GameObject { name = "TimeTunnel Controller" };
 #if UNITY_EDITOR
 						if (Application.isPlaying)
 							DontDestroyOnLoad (instanceHome);
@@ -127,7 +127,7 @@ namespace KimoTech.DigitalFactory.Kernels
         }
 
         /// <summary>
-        /// Use "yield return Threading.SwitchToExternalThread();" to execute the next block in an external thread.
+        /// Use "yield return ThreadTunnel.SwitchToExternalThread();" to execute the next block in an external thread.
         /// </summary>
         /// <param name="priority">The thread priority. In most cases it's best to leave this at Normal.</param>
         public static float SwitchToExternalThread(UnityEngine.ThreadPriority priority)
@@ -145,7 +145,7 @@ namespace KimoTech.DigitalFactory.Kernels
         }
 
         /// <summary>
-        /// Use "yield return Threading.SwitchToExternalThread();" to execute the next block in an external thread.
+        /// Use "yield return ThreadTunnel.SwitchToExternalThread();" to execute the next block in an external thread.
         /// </summary>
         /// <param name="priority">The thread priority. In most cases it's best to leave this at Normal.</param>
         public static float SwitchToExternalThread(System.Threading.ThreadPriority priority = System.Threading.ThreadPriority.Normal)
@@ -163,7 +163,7 @@ namespace KimoTech.DigitalFactory.Kernels
         }
 
         /// <summary>
-        /// Use "yield return Threading.SwitchToDedicatedExternalThread();" to execute the next block in an external thread. Dedicated threads should be used
+        /// Use "yield return ThreadTunnel.SwitchToDedicatedExternalThread();" to execute the next block in an external thread. Dedicated threads should be used
         /// when you expect the code block to take longer than one frame to run.
         /// </summary>
         /// <param name="priority">The thread priority. In most cases it's best to leave this at Normal.</param>
@@ -182,7 +182,7 @@ namespace KimoTech.DigitalFactory.Kernels
         }
 
         /// <summary>
-        /// Use "yield return Threading.SwitchToDedicatedExternalThread();" to execute the next block in an external thread. Dedicated threads should be used
+        /// Use "yield return ThreadTunnel.SwitchToDedicatedExternalThread();" to execute the next block in an external thread. Dedicated threads should be used
         /// when you expect the code block to take longer than one frame to run.
         /// </summary>
         /// <param name="priority">The thread priority. In most cases it's best to leave this at Normal.</param>
