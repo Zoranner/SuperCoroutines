@@ -2,7 +2,7 @@
     "name": "com.zoranner.supercoroutines",
     "displayName": "SuperCoroutines",
     "description": "SuperCoroutines",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "unity": "2019.1",
     "license": "MIT",
     "dependencies": {}
