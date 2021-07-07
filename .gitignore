@@ -112,3 +112,5 @@ bld/
 # ---> VisualStudioCode
 .vscode
 .history
+.DS_Store
+.vsconfig
